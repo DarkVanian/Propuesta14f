@@ -78,15 +78,13 @@
         ];
 
        function moveNo() {
-            let maxX = window.innerWidth - noButton.offsetWidth - 20; // Evita que se salga del lado derecho
-            let maxY = window.innerHeight - noButton.offsetHeight - 20; // Evita que se salga por abajo
+            let areaWidth = 300;  // Ancho del área de movimiento
+            let areaHeight = 200; // Alto del área de movimiento
+            let centerX = window.innerWidth / 2;  
+            let centerY = window.innerHeight / 2; 
         
-            let x = Math.random() * maxX;
-            let y = Math.random() * maxY;
-        
-            // Asegurarse de que el botón no se salga de la parte superior o izquierda
-            x = Math.max(10, x);
-            y = Math.max(10, y);
+            let x = centerX + (Math.random() * areaWidth - areaWidth / 2);
+            let y = centerY + (Math.random() * areaHeight - areaHeight / 2);
         
             noButton.style.left = `${x}px`;
             noButton.style.top = `${y}px`;
@@ -97,6 +95,7 @@
             let currentSize = parseFloat(window.getComputedStyle(yesButton).fontSize);
             yesButton.style.fontSize = `${currentSize + 5}px`;
         }
+
 
 
 
