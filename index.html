@@ -78,8 +78,8 @@
         ];
 
        function moveNo() {
-            let maxMoveX = 150; // Rango máximo de movimiento en X
-            let maxMoveY = 100; // Rango máximo de movimiento en Y
+            let maxMoveX = 200; // Rango máximo de movimiento en X
+            let maxMoveY = 150; // Rango máximo de movimiento en Y
         
             let currentX = noButton.offsetLeft;
             let currentY = noButton.offsetTop;
@@ -87,9 +87,14 @@
             let newX = currentX + (Math.random() * maxMoveX - maxMoveX / 2);
             let newY = currentY + (Math.random() * maxMoveY - maxMoveY / 2);
         
-            // Asegurar que el botón no salga de los límites de la pantalla
-            newX = Math.max(10, Math.min(newX, window.innerWidth - noButton.offsetWidth - 10));
-            newY = Math.max(10, Math.min(newY, window.innerHeight - noButton.offsetHeight - 10));
+            // Evitar que el botón salga de la pantalla
+            let minX = 10;
+            let minY = 10;
+            let maxX = window.innerWidth - noButton.offsetWidth - 10;
+            let maxY = window.innerHeight - noButton.offsetHeight - 10;
+        
+            newX = Math.max(minX, Math.min(newX, maxX));
+            newY = Math.max(minY, Math.min(newY, maxY));
         
             noButton.style.left = `${newX}px`;
             noButton.style.top = `${newY}px`;
@@ -100,6 +105,7 @@
             let currentSize = parseFloat(window.getComputedStyle(yesButton).fontSize);
             yesButton.style.fontSize = `${currentSize + 5}px`;
         }
+
 
 
 
