@@ -78,21 +78,22 @@
         ];
 
        function moveNo() {
-            let maxX = window.innerWidth - noButton.offsetWidth;
-            let maxY = window.innerHeight - noButton.offsetHeight;
-            
-            let x = Math.random() * maxX;
-            let y = Math.random() * maxY;
+            let maxX = window.innerWidth - noButton.offsetWidth - 20; // Ajuste para evitar bordes
+            let maxY = window.innerHeight - noButton.offsetHeight - 20; 
+        
+            let x = Math.max(10, Math.random() * maxX); // Evita valores negativos
+            let y = Math.max(10, Math.random() * maxY);
         
             noButton.style.left = `${x}px`;
             noButton.style.top = `${y}px`;
-        
+            
             let newQuestion = questions[Math.floor(Math.random() * questions.length)];
             question.innerText = newQuestion;
         
             let currentSize = parseFloat(window.getComputedStyle(yesButton).fontSize);
             yesButton.style.fontSize = `${currentSize + 5}px`;
         }
+
 
 
         function accept() {
