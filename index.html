@@ -78,17 +78,21 @@
         ];
 
        function moveNo() {
-            let areaWidth = 300;  // Ancho del área de movimiento
-            let areaHeight = 200; // Alto del área de movimiento
+            let maxMoveX = 150; // Rango máximo de movimiento en X
+            let maxMoveY = 100; // Rango máximo de movimiento en Y
         
-            let containerX = window.innerWidth / 2 - areaWidth / 2;
-            let containerY = window.innerHeight / 2 - areaHeight / 2;
+            let currentX = noButton.offsetLeft;
+            let currentY = noButton.offsetTop;
         
-            let x = containerX + Math.random() * areaWidth;
-            let y = containerY + Math.random() * areaHeight;
+            let newX = currentX + (Math.random() * maxMoveX - maxMoveX / 2);
+            let newY = currentY + (Math.random() * maxMoveY - maxMoveY / 2);
         
-            noButton.style.left = `${x}px`;
-            noButton.style.top = `${y}px`;
+            // Asegurar que el botón no salga de los límites de la pantalla
+            newX = Math.max(10, Math.min(newX, window.innerWidth - noButton.offsetWidth - 10));
+            newY = Math.max(10, Math.min(newY, window.innerHeight - noButton.offsetHeight - 10));
+        
+            noButton.style.left = `${newX}px`;
+            noButton.style.top = `${newY}px`;
         
             let newQuestion = questions[Math.floor(Math.random() * questions.length)];
             question.innerText = newQuestion;
@@ -96,6 +100,7 @@
             let currentSize = parseFloat(window.getComputedStyle(yesButton).fontSize);
             yesButton.style.fontSize = `${currentSize + 5}px`;
         }
+
 
 
 
