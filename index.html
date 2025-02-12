@@ -78,17 +78,26 @@
         ];
 
        function moveNo() {
-            let x = Math.random() * (window.innerWidth - 100);
-            let y = Math.random() * (window.innerHeight - 100);
+            let maxX = window.innerWidth - noButton.offsetWidth - 20; // Evita que se salga del lado derecho
+            let maxY = window.innerHeight - noButton.offsetHeight - 20; // Evita que se salga por abajo
+        
+            let x = Math.random() * maxX;
+            let y = Math.random() * maxY;
+        
+            // Asegurarse de que el botón no se salga de la parte superior o izquierda
+            x = Math.max(10, x);
+            y = Math.max(10, y);
+        
             noButton.style.left = `${x}px`;
             noButton.style.top = `${y}px`;
-            
+        
             let newQuestion = questions[Math.floor(Math.random() * questions.length)];
             question.innerText = newQuestion;
-            
+        
             let currentSize = parseFloat(window.getComputedStyle(yesButton).fontSize);
             yesButton.style.fontSize = `${currentSize + 5}px`;
         }
+
 
 
 
