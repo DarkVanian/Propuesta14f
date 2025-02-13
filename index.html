@@ -59,7 +59,7 @@
     </style>
 </head>
 <body>
-    <img id="headerGif" src="re.gif" alt="Animación inicial" style="width: 200px; height: auto; margin-bottom: 20px;">
+    <img id="headerGif" src="pre.gif" alt="Animación inicial" style="width: 200px; height: auto; margin-bottom: 20px;">
     <h1 id="question">¿Quieres ser mi san Valentín?</h1>
     <div class="buttons">
         <button id="yes" onclick="accept()">Sí</button>
@@ -78,41 +78,48 @@
             "Última oportunidad...", "Mira qué bonito botón rojo..."
         ];
 
-       function moveNo() {
-            let maxX = window.innerWidth - noButton.clientWidth - 20;
-            let maxY = window.innerHeight - noButton.clientHeight - 20;
+      function moveNo() {
+            let margin = 50; // Margen de seguridad
+            let step = 100; // Distancia mínima de desplazamiento
         
-            let newX, newY;
-            let overlap;
+            let noRect = noButton.getBoundingClientRect();
+            let yesRect = yesButton.getBoundingClientRect();
         
-            do {
-                newX = Math.random() * maxX;
-                newY = Math.random() * maxY;
+            let maxX = window.innerWidth - noRect.width - margin;
+            let maxY = window.innerHeight - noRect.height - margin;
         
-                // Verificar que no se superponga con el botón "Sí"
-                let yesRect = yesButton.getBoundingClientRect();
-                let noRect = { left: newX, top: newY, right: newX + noButton.clientWidth, bottom: newY + noButton.clientHeight };
+            let newX = noRect.left + (Math.random() > 0.5 ? step : -step);
+            let newY = noRect.top + (Math.random() > 0.5 ? step : -step);
         
-                overlap = !(
-                    noRect.right < yesRect.left ||
-                    noRect.left > yesRect.right ||
-                    noRect.bottom < yesRect.top ||
-                    noRect.top > yesRect.bottom
-                );
-            } while (overlap);
+            // Asegurar que se mantenga dentro de los límites de la pantalla
+            newX = Math.max(margin, Math.min(newX, maxX));
+            newY = Math.max(margin, Math.min(newY, maxY));
         
+            // Verificar que no se superponga con el botón "Sí"
+            if (
+                newX < yesRect.right &&
+                newX + noRect.width > yesRect.left &&
+                newY < yesRect.bottom &&
+                newY + noRect.height > yesRect.top
+            ) {
+                newX += step * (Math.random() > 0.5 ? 1 : -1);
+                newY += step * (Math.random() > 0.5 ? 1 : -1);
+            }
+        
+            // Aplicar el movimiento
             noButton.style.left = `${newX}px`;
             noButton.style.top = `${newY}px`;
         
-            // Cambiar la pregunta y agrandar el botón "Sí"
+            // Cambiar la pregunta y hacer crecer el botón "Sí"
             let newQuestion = questions[Math.floor(Math.random() * questions.length)];
             question.innerText = newQuestion;
             let currentSize = parseFloat(window.getComputedStyle(yesButton).fontSize);
             yesButton.style.fontSize = `${currentSize + 5}px`;
         }
+        
+        // Evitar que el botón "No" sea presionado
+        noButton.addEventListener("click", moveNo);
 
-// Evitar que el botón "No" sea presionado
-noButton.addEventListener("click", moveNo);
 
 
         function accept() {
