@@ -60,7 +60,7 @@
 </head>
 <body>
     <h1 id="question">¿Quieres ser mi novia?</h1>
-    <img id="heartImage" src="tu-gif-aqui.gif" alt="Amor" style="width: 200px; height: auto; margin-bottom: 20px; display: none;">
+    <img id="heartImage" src="pre.gif" alt="Amor" style="width: 200px; height: auto; margin-bottom: 20px; display: none;">
     <div class="buttons">
         <button id="yes" onclick="accept()">Sí</button>
         <button id="no" onmouseover="moveNo()" onclick="moveNo()">No</button>
@@ -134,7 +134,7 @@
 
         function createHeart() {
             let heart = document.createElement("img");
-            heart.src = "tu-gif-corazon.gif";
+            heart.src = "si.gif";
             heart.classList.add("hearts");
             heart.style.left = `${Math.random() * window.innerWidth}px`;
             heart.style.top = `${window.innerHeight}px`;
