@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>¿Quieres ser mi novia?</title>
+    <title>¿Quieres ser mi san Valentín?</title>
     <style>
         body {
             text-align: center;
@@ -60,7 +60,7 @@
 </head>
 <body>
     <h1 id="question">¿Quieres ser mi novia?</h1>
-    <img id="heartImage" src="Cora.png" alt="Corazones" style="width: 150px; height: auto; margin-bottom: 20px; display: none;">
+    <img id="heartImage" src="tu-gif-aqui.gif" alt="Amor" style="width: 200px; height: auto; margin-bottom: 20px; display: none;">
     <div class="buttons">
         <button id="yes" onclick="accept()">Sí</button>
         <button id="no" onmouseover="moveNo()" onclick="moveNo()">No</button>
@@ -134,7 +134,7 @@
 
         function createHeart() {
             let heart = document.createElement("img");
-            heart.src = "Cora.png";
+            heart.src = "tu-gif-corazon.gif";
             heart.classList.add("hearts");
             heart.style.left = `${Math.random() * window.innerWidth}px`;
             heart.style.top = `${window.innerHeight}px`;
