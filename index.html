@@ -114,7 +114,6 @@
             yesButton.style.fontSize = `${currentSize + 5}px`;
         }
 
-        
         function accept() {
             question.innerText = "¡Sabía que dirías que sí! 💖";
             yesButton.style.transform = "scale(1.5) rotate(360deg)";
@@ -122,9 +121,6 @@
         
             // Cambiar el GIF inicial por otro cariñoso
             document.getElementById("headerGif").src = "si.gif";
-        
-            // Mostrar el GIF de corazones fijos
-            heartImage.style.display = "block";
         
             // Generar corazones animados
             for (let i = 0; i < 10; i++) {
@@ -135,16 +131,21 @@
 
         function createHeart() {
             let heart = document.createElement("img");
-            heart.src = "Cora.png";
+            heart.src = "corazon.gif";  // Usa un GIF animado de corazón
             heart.classList.add("hearts");
+        
+            // Posición inicial aleatoria en la parte inferior de la pantalla
             heart.style.left = `${Math.random() * window.innerWidth}px`;
             heart.style.top = `${window.innerHeight}px`;
+        
             document.body.appendChild(heart);
-            
+        
+            // Eliminar el corazón después de la animación
             setTimeout(() => {
                 heart.remove();
             }, 2000);
         }
+
     </script>
 </body>
 </html>
