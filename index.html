@@ -79,8 +79,8 @@
         ];
 
       function moveNo() {
-            let margin = 50; // Margen de seguridad
-            let step = 120; // Distancia mínima de desplazamiento
+            let margin = 50; // Margen de seguridad para evitar que se salga
+            let step = 150; // Distancia mínima de movimiento
         
             let noRect = noButton.getBoundingClientRect();
             let yesRect = yesButton.getBoundingClientRect();
@@ -89,26 +89,35 @@
             let maxY = window.innerHeight - noRect.height - margin;
         
             let newX, newY;
+            let attempts = 0;
         
             do {
+                // Intentar generar una nueva posición dentro de los límites
                 newX = noRect.left + (Math.random() > 0.5 ? step : -step);
                 newY = noRect.top + (Math.random() > 0.5 ? step : -step);
         
-                // Asegurar que se mantenga dentro de los límites de la pantalla
+                // Limitar la posición dentro de la ventana visible
                 newX = Math.max(margin, Math.min(newX, maxX));
                 newY = Math.max(margin, Math.min(newY, maxY));
         
+                attempts++;
+        
+                // Si después de 10 intentos no encuentra un lugar, moverlo a una posición aleatoria válida
+                if (attempts > 10) {
+                    newX = Math.random() * (maxX - margin) + margin;
+                    newY = Math.random() * (maxY - margin) + margin;
+                    break;
+                }
             } while (
-                // Evitar superposición con el botón "Sí"
+                // Asegurar que no se superponga con el botón "Sí"
                 newX < yesRect.right &&
                 newX + noRect.width > yesRect.left &&
                 newY < yesRect.bottom &&
                 newY + noRect.height > yesRect.top
             );
         
-            // Aplicar el movimiento
-            noButton.style.left = `${newX}px`;
-            noButton.style.top = `${newY}px`;
+            // Aplicar el movimiento con animación
+            noButton.style.transform = `translate(${newX - noRect.left}px, ${newY - noRect.top}px)`;
         
             // Cambiar la pregunta y hacer crecer el botón "Sí"
             let newQuestion = questions[Math.floor(Math.random() * questions.length)];
@@ -117,8 +126,9 @@
             yesButton.style.fontSize = `${currentSize + 5}px`;
         }
         
-        // Evitar que el botón "No" sea presionado
+        // Evitar que el botón "No" se pueda presionar
         noButton.addEventListener("click", moveNo);
+
 
 
 
