@@ -79,40 +79,41 @@
         ];
 
        function moveNo() {
-            let maxWidth = window.innerWidth - noButton.offsetWidth - 20;
-            let maxHeight = window.innerHeight - noButton.offsetHeight - 20;
+            let maxX = window.innerWidth - noButton.clientWidth - 20;
+            let maxY = window.innerHeight - noButton.clientHeight - 20;
         
-            let x = Math.random() * maxWidth;
-            let y = Math.random() * maxHeight;
+            let newX, newY;
+            let overlap;
         
-            // Evitar que se sobreponga con el botón "Sí"
-            let yesRect = yesButton.getBoundingClientRect();
-            let noRect = noButton.getBoundingClientRect();
+            do {
+                newX = Math.random() * maxX;
+                newY = Math.random() * maxY;
         
-            let overlap = true;
-            while (overlap) {
-                x = Math.random() * maxWidth;
-                y = Math.random() * maxHeight;
+                // Verificar que no se superponga con el botón "Sí"
+                let yesRect = yesButton.getBoundingClientRect();
+                let noRect = { left: newX, top: newY, right: newX + noButton.clientWidth, bottom: newY + noButton.clientHeight };
         
-                if (
-                    x + noRect.width < yesRect.left || 
-                    x > yesRect.right || 
-                    y + noRect.height < yesRect.top || 
-                    y > yesRect.bottom
-                ) {
-                    overlap = false;
-                }
-            }
+                overlap = !(
+                    noRect.right < yesRect.left ||
+                    noRect.left > yesRect.right ||
+                    noRect.bottom < yesRect.top ||
+                    noRect.top > yesRect.bottom
+                );
+            } while (overlap);
         
-            noButton.style.left = `${x}px`;
-            noButton.style.top = `${y}px`;
+            noButton.style.left = `${newX}px`;
+            noButton.style.top = `${newY}px`;
         
+            // Cambiar la pregunta y agrandar el botón "Sí"
             let newQuestion = questions[Math.floor(Math.random() * questions.length)];
             question.innerText = newQuestion;
-        
             let currentSize = parseFloat(window.getComputedStyle(yesButton).fontSize);
             yesButton.style.fontSize = `${currentSize + 5}px`;
         }
+
+// Evitar que el botón "No" sea presionado
+noButton.addEventListener("click", moveNo);
+
 
         function accept() {
             question.innerText = "¡Sabía que dirías que sí! 💖";
