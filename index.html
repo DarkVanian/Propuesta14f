@@ -59,7 +59,7 @@
     </style>
 </head>
 <body>
-    <img id="heartImage" src="pre.gif" alt="Amor" style="width: 200px; height: auto; margin-bottom: 20px; display: none;">
+    <img id="headerGif" src="pre.gif" alt="Animación inicial" style="width: 200px; height: auto; margin-bottom: 20px;">
     <h1 id="question">¿Quieres ser mi san Valentín?</h1>
     <div class="buttons">
         <button id="yes" onclick="accept()">Sí</button>
@@ -125,17 +125,23 @@
             question.innerText = "¡Sabía que dirías que sí! 💖";
             yesButton.style.transform = "scale(1.5) rotate(360deg)";
             noButton.style.display = "none";
+        
+            // Cambiar el GIF inicial por otro cariñoso
+            document.getElementById("headerGif").src = "si.gif";
+        
+            // Mostrar el GIF de corazones fijos
             heartImage.style.display = "block";
-            
+        
+            // Generar corazones animados
             for (let i = 0; i < 10; i++) {
                 createHeart();
             }
         }
 
+
         function createHeart() {
             let heart = document.createElement("img");
             heart.src = "Cora.png";
-            heardImage.src = "si.gif";
             heart.classList.add("hearts");
             heart.style.left = `${Math.random() * window.innerWidth}px`;
             heart.style.top = `${window.innerHeight}px`;
