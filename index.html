@@ -59,7 +59,7 @@
     </style>
 </head>
 <body>
-    <img id="headerGif" src="pre.gif" alt="Animación inicial" style="width: 200px; height: auto; margin-bottom: 20px;">
+    <img id="headerGif" src="re.gif" alt="Animación inicial" style="width: 200px; height: auto; margin-bottom: 20px;">
     <h1 id="question">¿Quieres ser mi san Valentín?</h1>
     <div class="buttons">
         <button id="yes" onclick="accept()">Sí</button>
@@ -80,7 +80,7 @@
 
       function moveNo() {
             let margin = 50; // Margen de seguridad
-            let step = 100; // Distancia mínima de desplazamiento
+            let step = 120; // Distancia mínima de desplazamiento
         
             let noRect = noButton.getBoundingClientRect();
             let yesRect = yesButton.getBoundingClientRect();
@@ -88,23 +88,23 @@
             let maxX = window.innerWidth - noRect.width - margin;
             let maxY = window.innerHeight - noRect.height - margin;
         
-            let newX = noRect.left + (Math.random() > 0.5 ? step : -step);
-            let newY = noRect.top + (Math.random() > 0.5 ? step : -step);
+            let newX, newY;
         
-            // Asegurar que se mantenga dentro de los límites de la pantalla
-            newX = Math.max(margin, Math.min(newX, maxX));
-            newY = Math.max(margin, Math.min(newY, maxY));
+            do {
+                newX = noRect.left + (Math.random() > 0.5 ? step : -step);
+                newY = noRect.top + (Math.random() > 0.5 ? step : -step);
         
-            // Verificar que no se superponga con el botón "Sí"
-            if (
+                // Asegurar que se mantenga dentro de los límites de la pantalla
+                newX = Math.max(margin, Math.min(newX, maxX));
+                newY = Math.max(margin, Math.min(newY, maxY));
+        
+            } while (
+                // Evitar superposición con el botón "Sí"
                 newX < yesRect.right &&
                 newX + noRect.width > yesRect.left &&
                 newY < yesRect.bottom &&
                 newY + noRect.height > yesRect.top
-            ) {
-                newX += step * (Math.random() > 0.5 ? 1 : -1);
-                newY += step * (Math.random() > 0.5 ? 1 : -1);
-            }
+            );
         
             // Aplicar el movimiento
             noButton.style.left = `${newX}px`;
@@ -119,6 +119,7 @@
         
         // Evitar que el botón "No" sea presionado
         noButton.addEventListener("click", moveNo);
+
 
 
 
@@ -139,7 +140,7 @@
 
         function createHeart() {
             let heart = document.createElement("img");
-            heart.src = "Cora.gif";  // Usa un GIF animado de corazón
+            heart.src = "Cora.png";  // Usa un GIF animado de corazón
             heart.classList.add("hearts");
         
             // Posición inicial aleatoria en la parte inferior de la pantalla
